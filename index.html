@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigo Secreto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-color: #f4f4f4; /* Fundo suave para a página */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ajuste da altura para 100% da tela */
+            flex-direction: column;
+        }
+        .faixa-azul {
+            background-color: #007BFF; /* Cor azul da faixa */
+            height: 10cm; /* Altura da faixa azul de 10cm */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .faixa-azul img {
+            height: 5cm; /* Altura da imagem ajustada para 5cm */
+            width: auto; /* Largura ajustada automaticamente para manter a proporção */
+            margin-left: 30px; /* Aumentando a distância da imagem para o texto */
+        }
+        h1 {
+            color: #333; /* Cor do título */
+            margin-top: 20px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            background-color: #fff; /* Fundo branco para o contêiner */
+            border-radius: 25px; /* Bordas arredondadas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            width: 500px; /* Largura aumentada para o contêiner */
+        }
+        input[type="text"] {
+            padding: 15px;
+            border-radius: 25px 0 0 25px; /* Bordas arredondadas à esquerda */
+            border: 2px solid #ccc;
+            font-size: 1rem;
+            width: 80%; /* A largura do campo de entrada agora é 80% */
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db; /* Cor da borda ao focar no campo */
+        }
+        button {
+            background-color: #3498db; /* Cor azul suave */
+            color: white;
+            border: none;
+            padding: 15px 60px; /* Diminui o padding do botão */
+            font-size: 1.2rem; /* Aumentei o tamanho da fonte */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center; /* Alinha o texto do botão */
+        }
+        button:hover {
+            background-color: #2980b9; /* Cor do fundo ao passar o mouse */
+            transform: scale(1.05); /* Aumenta o botão ao passar o mouse */
+        }
+        button:active {
+            background-color: #1f70a0; /* Cor mais escura ao clicar */
+            transform: scale(1); /* Retorna ao tamanho original ao clicar */
+        }
+        #adicionar-button {
+            border-radius: 0 25px 25px 0; /* Bordas arredondadas à direita */
+            width: auto; /* Tamanho automático com padding ajustado */
+        }
+        #sortear-button {
+            border-radius: 25px; /* Bordas arredondadas em todas as pontas */
+            margin-top: 20px; /* Espaço acima do botão */
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        li {
+            background: #eb7e10;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="faixa-azul">
+        <span>Amigo Secreto</span>
+        <img src="assets/amigo-secreto.png" alt="Imagem Amigo Secreto"> <!-- Caminho corrigido -->
+    </div>
+    <h1>Sorteio de Amigo Secreto</h1>
+    
+    <div class="input-container">
+        <input type="text" id="nome" placeholder="Digite um nome">
+        <button id="adicionar-button" onclick="adicionarNome()">Adicionar</button>
+    </div>
+    
+    <ul id="lista"></ul>
+    <button id="sortear-button" onclick="sortearAmigo()">Sortear Amigo</button>
+    <h2 id="resultado"></h2>
+
+    <script>
+        let participantes = [];
+
+        function adicionarNome() {
+            let nomeInput = document.getElementById("nome");
+            let nome = nomeInput.value.trim();
+            if (nome && !participantes.includes(nome)) {
+                participantes.push(nome);
+                let lista = document.getElementById("lista");
+                let item = document.createElement("li");
+                item.textContent = nome;
+                lista.appendChild(item);
+                nomeInput.value = "";
+            }
+        }
+
+        function sortearAmigo() {
+            if (participantes.length < 2) {
+                document.getElementById("resultado").textContent = "Adicione pelo menos 2 participantes!";
+                return;
+            }
+            let sorteado = participantes[Math.floor(Math.random() * participantes.length)];
+            document.getElementById("resultado").textContent = "O amigo secreto é: " + sorteado;
+        }
+    </script>
+</body>
+</html>
